@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: var(--bs-indigo);
+            --bs-secondary: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vystupniDiv">
+        <p>neco</p>
+
+
+    </div>
+    <section id="a">
+        <div class="container">
+            <h2 id="podnad">podnadpis</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem qui a, ipsa adipisci accusantium
+                aspernatur sapiente eum odit doloremque vitae impedit dolore ullam corporis dignissimos vero modi aut
+                exercitationem perferendis rem velit minima temporibus ipsam! Neque vitae accusamus odio libero?</p>
+
+            <p id="druhy">Dolorum tempora quo vero maxime tenetur hic perferendis, laudantium rem laborum animi neque
+                reiciendis
+                dignissimos ea architecto aut praesentium minus harum dolorem, deserunt debitis quibusdam quisquam ad
+                similique. Sint enim libero aperiam odio error totam atque. Ab officiis id blanditiis!</p>
+            <p id="prazdny"></p>
+            <h2>druhy</h2>
+            <p>Pariatur nesciunt neque ullam ex optio, alias odit modi enim libero asperiores minima laudantium
+                aspernatur odio cum atque est sed iste quae aut dolore. Facere asperiores maiores ipsam deserunt amet
+                repellat reprehenderit fugiat iure rerum esse. Dignissimos consequuntur suscipit delectus.</p>
+            <p>Laborum, pariatur eum. Velit, nostrum. Unde, incidunt. Sit nemo dolorum porro neque nulla fugiat autem ab
+                eius qui voluptatum consequuntur reprehenderit in non natus cum quidem, architecto placeat, voluptates
+                accusamus commodi, quod eveniet explicabo modi. Voluptates inventore eum numquam perferendis.</p>
+        </div>
+    </section>
+    <script>
+        const circle = {
+            radius: 1,
+            postion: {
+                x: 2,
+                y: 2
+            }
+        }
+        console.log(circle);
+        console.log(circle.constructor);
+
+        //Factory function - definuji objekt jako navratovou hodnotu funkce
+        function createPerson(firstNameParameter, lastNameParameter, ageParameter) {
+            return {
+                firstName: firstNameParameter,
+                lastName: lastNameParameter,
+                age: ageParameter,
+            }
+        }
+        const person1 = createPerson("Jan", "Novak", 33);
+        console.log("--------------------Vystup factory funkce:");
+        console.log(person1);
+        console.log(person1.constructor);
+
+        //Constructor function - uziva this k prirazeni definice na prazdny objekt vytvoreny pomoci new (new predchazi volani konstruktoru), ktery pak i vraci
+        function Person(firstNameParameter, lastNameParameter, ageParameter) {
+            this.firstName = firstNameParameter;
+            this.lastName = lastNameParameter;
+            this.age = ageParameter;
+        }
+        const person2 = new Person("Jan", "Novak", 33);
+        console.log("--------------------Vystup konstruktoru:");
+        console.log(person2);
+        console.log(person2.constructor);
+        // To create objects using constructor functions, we use another keyword, "new". When you use the term "new" in front of a function call, javascript does two things for us automatically:
+
+        // A) Inside the function, creates an empty object with the name "this".
+        // B) Returns the object "this" to the statement that called the function initially.
+        // viz https://dev.to/bchau/factory-functions-vs-constructors-500m
+        // konstruktor nevytvori pro kazdou instanci prototypu Person vlastni funkci, proto se zmena prototypu projevi na vsech instancich
+        // factory funkce zase lepe enkapsuluji data pro jednotlive instance - argumenty vlozene do funkce nejsou dosazitelne z vnejsku 
+
+        // document.write("Hello World");
+        const ALL = document.getElementsByTagName("body");
+        let vystup = document.getElementsByClassName("vystupniDiv");
+        console.log(vystup[0].outerHTML);
+        console.log(`VYPSANO: ${document.querySelector(".vystupniDiv").textContent}`);
+
+        vystup = person1.lastName;
+        document.querySelector(".vystupniDiv").innerHTML = "<h1>Hlouposti</h1>";
+        console.log(vystup);
+
+        const person3 = new Person("Tajny", "Agent", 007);
+        console.log(person3.age)
+
+        // Priklad encapsulation v Factory function (neprozradi parametry)
+        function createPersonWithoutFields(par1, par2, par3) { return { getParameters: function () { console.log(par1 + par2 + " je " + par3) } } }
+        const person4 = createPersonWithoutFields("Tajny", "Agent", 007);
+        person4.getParameters(); // getter ziska
+        console.log(person4.par3) // undefined
+
+        document.querySelector(".vystupniDiv").append("<i>something</i>")
+        //document.querySelector(".vystupniDiv").append("<i>something</i>")
+        const podnadpis = document.querySelector("#podnad").innerHTML;
+        //document.append("something");
+        let prvek = document.createElement("span");
+        prvek.append("<i>" + podnadpis + "</i>");
+        console.log(prvek);
+        document.querySelector("#prazdny").innerHTML = prvek.textContent;
+        // document.querySelector("#druhy").append(prvek);
+        let psani = document.createElement("span");
+        psani.style.background = "grey";
+        let obsahPsani = document.createTextNode("vytvoreny text");
+        psani.appendChild(obsahPsani);
+        document.body.appendChild(psani);
+
+    </script>
+</body>
+
+</html>
